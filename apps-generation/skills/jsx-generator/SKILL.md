@@ -51,14 +51,18 @@ Node.js 20+ is required. If not available, report error with install instruction
 - **Directory**: `output/app/{app-name}/`
 - **Naming**: descriptive directory names (not timestamped). Example: `output/app/q1-dashboard/`
 - **Re-running**: overwrites the previous version. Apps are iterative artifacts, not archived snapshots.
-- **Contents**:
-  - `dist/` — built app, ready to open via `file://`
+- **Required contents** (all produced by `build.sh` — do not create manually):
+  - `dist/` — **built app, ready to open via `file://`** ← this is the deliverable
+  - `dist/index.html` — entry point the user opens in their browser
+  - `dist/assets/*.js` — bundled JavaScript
   - `src/` — source code for rebuilds
   - `package.json` — dependencies for `npm install && npm run build`
   - `vite.config.ts` — Vite configuration
   - `tsconfig.json`, `tsconfig.app.json` — TypeScript config
   - `components.json` — shadcn/ui config
   - `data.json` — the data used to generate the app
+
+**An output directory without `dist/index.html` is not a valid deliverable.** Raw `.jsx` or `.tsx` files alone cannot be opened in a browser.
 
 ## Template selection
 
@@ -73,34 +77,75 @@ Select template based on intent keywords in the user's request:
 
 If ambiguous, default to **dashboard** for data-heavy requests or **report** for narrative-heavy requests.
 
-## Build flow
+## Build flow — MANDATORY
+
+**CRITICAL**: Every invocation of this skill MUST produce a fully built Vite application by running `scripts/build.sh`. NEVER write raw `.jsx`, `.tsx`, or `.js` files directly to `output/app/`. Writing source files without building them is not a valid output — the user cannot open raw JSX in a browser.
+
+**NEVER skip the build step.** Even if the JSX is correct, unbuilt source files are useless to the user. The build produces `dist/index.html` which is the actual deliverable.
 
 The plugin ships with a **pre-initialized template base** (`_base/base.tar.gz`) — a fully scaffolded Vite + React + shadcn project. This avoids the 2-5 minute cold-start of `npm create vite` + `npx shadcn init`.
 
-Execute the build via `scripts/build.sh`:
+### Step-by-step procedure
+
+Follow these steps in exact order. Do not skip any step.
+
+#### 1. Prepare data
+
+Write the app's data to a JSON file (e.g., `data.json`) in the working directory. This file will be injected into the app by the build script.
+
+#### 2. Write source files
+
+Write any custom React components (App.tsx, pages, etc.) to a temporary location. The build script will copy the selected template first, then custom source files override the template.
+
+#### 3. Run build.sh
+
+Execute the build script. This is the **mandatory** step that produces the final app:
 
 ```bash
 bash ${CLAUDE_PLUGIN_ROOT}/skills/jsx-generator/scripts/build.sh \
   --template dashboard \
-  --data /path/to/data.json \
-  --brand /path/to/.reporting-resolved/brand-config.json \
-  --logo /path/to/.reporting-resolved/logo.png \
-  --output output/app/my-dashboard \
+  --data $(pwd)/data.json \
+  --brand $(pwd)/.reporting-resolved/brand-config.json \
+  --logo $(pwd)/.reporting-resolved/logo.png \
+  --output $(pwd)/output/app/my-dashboard \
   --plugin-dir ${CLAUDE_PLUGIN_ROOT}/skills/jsx-generator
 ```
 
-### Build steps
+**IMPORTANT**: Use absolute paths (`$(pwd)/...`) for `--output`, `--data`, `--brand`, and `--logo`. Relative paths will resolve incorrectly because the script changes directories internally.
 
-1. **Untar base** — extract `_base/base.tar.gz` into a working directory
-2. **Copy template** — copy selected template (dashboard/report/comparison/timeline) into `src/`
-3. **Inject data** — write `data.json` to `public/` via `scripts/inject-data.js`
-4. **Apply brand** — map brand colors to Tailwind CSS custom properties in `tailwind.config.ts`, copy logo to `public/`
-5. **Set Vite base** — ensure `base: './'` in `vite.config.ts` (critical for `file://` access)
-6. **Build** — `npm run build` → produces `dist/`
-7. **Verify** — run `scripts/verify-self-contained.sh` on `dist/`
-8. **Output** — copy `dist/` and `src/` to final output path
+The build script performs these steps automatically:
+1. Extracts `_base/base.tar.gz` into a temp working directory
+2. Copies the selected template (dashboard/report/comparison/timeline) into `src/`
+3. Injects `data.json` into `public/`
+4. Maps brand colors to Tailwind CSS custom properties, copies logo to `public/`
+5. Sets `base: './'` in `vite.config.ts` (critical for `file://` access)
+6. Runs `npm run build` → produces `dist/`
+7. Runs `scripts/verify-self-contained.sh` on `dist/`
+8. Copies `dist/`, `src/`, `package.json`, `vite.config.ts`, `tsconfig.json` to the output path
 
 Typical build time with pre-initialized base: ~20 seconds.
+
+#### 4. Validate output — REQUIRED
+
+After `build.sh` completes, verify the output directory contains the required structure:
+
+```bash
+# All of these must exist — if any is missing, the build failed
+test -f output/app/my-dashboard/dist/index.html || echo "FAIL: no dist/index.html"
+test -d output/app/my-dashboard/dist/assets || echo "FAIL: no dist/assets/"
+ls output/app/my-dashboard/dist/assets/*.js >/dev/null 2>&1 || echo "FAIL: no JS bundle"
+test -f output/app/my-dashboard/package.json || echo "FAIL: no package.json"
+test -d output/app/my-dashboard/src || echo "FAIL: no src/"
+```
+
+If validation fails, diagnose the build error and retry. Do not deliver an output directory that lacks `dist/index.html`.
+
+#### 5. Report to user
+
+Confirm the output path and list the key files:
+- `dist/index.html` — open this in a browser (works via `file://`)
+- `src/` — source code for future modification
+- `data.json` — the data powering the app
 
 ## Self-containment rules
 

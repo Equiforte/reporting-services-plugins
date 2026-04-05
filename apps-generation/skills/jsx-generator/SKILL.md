@@ -17,7 +17,7 @@ allowed-tools:
 
 # JSX Generator
 
-Generate self-contained React applications using Vite + TypeScript + Tailwind CSS + shadcn/ui (https://ui.shadcn.com). Apps must work as `file://` — no server required, shareable as a folder.
+Generate self-contained React applications using Vite + TypeScript + Tailwind CSS + shadcn/ui (https://ui.shadcn.com). Apps must work as `file://` — no server required, no internet required, shareable as a folder. **Every app MUST be built via `scripts/build.sh`** — there is no alternative method. Do not create CDN-based HTML files as a substitute.
 
 ## Stack
 
@@ -79,9 +79,17 @@ If ambiguous, default to **dashboard** for data-heavy requests or **report** for
 
 ## Build flow — MANDATORY
 
-**CRITICAL**: Every invocation of this skill MUST produce a fully built Vite application by running `scripts/build.sh`. NEVER write raw `.jsx`, `.tsx`, or `.js` files directly to `output/app/`. Writing source files without building them is not a valid output — the user cannot open raw JSX in a browser.
+**CRITICAL**: Every invocation of this skill MUST produce a fully built Vite application by running `scripts/build.sh`. There is NO alternative build method. Specifically:
 
-**NEVER skip the build step.** Even if the JSX is correct, unbuilt source files are useless to the user. The build produces `dist/index.html` which is the actual deliverable.
+- **NEVER** write raw `.jsx`, `.tsx`, or `.js` files directly to `output/app/` as the deliverable.
+- **NEVER** create a single HTML file with CDN script tags (unpkg, esm.sh, cdn.tailwindcss.com, etc.) as a substitute for running `build.sh`. CDN-based HTML files require internet access and violate the self-containment requirement.
+- **NEVER** use Babel-in-browser (`<script type="text/babel">`) as a build substitute.
+- **NEVER** hand-craft `dist/index.html` — it must be produced by `npm run build` inside `build.sh`.
+- **NEVER** delegate "building" to a subagent that creates CDN-based HTML.
+
+The ONLY valid build method is: run `scripts/build.sh`, which uses Vite to bundle everything into a self-contained `dist/` with no external dependencies.
+
+**Why**: The output must work offline via `file://` with zero network requests. CDN-based approaches fail without internet and violate the self-containment contract.
 
 The plugin ships with a **pre-initialized template base** (`_base/base.tar.gz`) — a fully scaffolded Vite + React + shadcn project. This avoids the 2-5 minute cold-start of `npm create vite` + `npx shadcn init`.
 
@@ -95,7 +103,9 @@ Write the app's data to a JSON file (e.g., `data.json`) in the working directory
 
 #### 2. Write source files
 
-Write any custom React components (App.tsx, pages, etc.) to a temporary location. The build script will copy the selected template first, then custom source files override the template.
+Write any custom React components (App.tsx, pages, etc.) to a temporary staging directory (e.g., `_staging/src/`). Do NOT write them to `output/app/` — that directory is populated by `build.sh`. The build script copies the selected template first, then custom source files from the staging directory override the template.
+
+**IMPORTANT**: Do not write source files directly to `output/app/` and consider the job done. Source files alone are not a deliverable. Continue to step 3.
 
 #### 3. Run build.sh
 
@@ -136,9 +146,13 @@ test -d output/app/my-dashboard/dist/assets || echo "FAIL: no dist/assets/"
 ls output/app/my-dashboard/dist/assets/*.js >/dev/null 2>&1 || echo "FAIL: no JS bundle"
 test -f output/app/my-dashboard/package.json || echo "FAIL: no package.json"
 test -d output/app/my-dashboard/src || echo "FAIL: no src/"
+
+# Self-containment: MUST NOT have CDN/external script tags
+! grep -q 'unpkg.com\|cdn.tailwindcss\|esm.sh\|cdnjs.com\|jsdelivr.net\|babel.*standalone' \
+  output/app/my-dashboard/dist/index.html || echo "FAIL: dist/index.html contains CDN references"
 ```
 
-If validation fails, diagnose the build error and retry. Do not deliver an output directory that lacks `dist/index.html`.
+If validation fails, diagnose the build error and retry. Do not deliver an output directory that lacks `dist/index.html` or that contains CDN references.
 
 #### 5. Report to user
 

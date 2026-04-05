@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Create a Markdown summary report of Q1 2026 performance. Revenue was $12.4M (+8.2% YoY), EBITDA was $3.1M (+12.1%), headcount grew to 142 (+8), and NPS reached 72 (+5). Include a quarterly revenue breakdown table showing Q1 2026 through Q2 2025. Write the output to the output directory.

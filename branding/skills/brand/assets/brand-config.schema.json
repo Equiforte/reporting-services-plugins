@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand-config.schema.json",
+  "title": "Brand Configuration",
+  "description": "Configuration schema for the reporting-plugins branding system. All sections are optional — unset fields fall back to defaults.",
+  "type": "object",
+  "properties": {
+    "nl_overrides": {
+      "type": "boolean",
+      "default": true,
+      "description": "Set to false to disable natural-language overrides from .claude/branding.local.md. When false, output is fully reproducible from JSON + assets alone."
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["best_effort", "strict"],
+      "default": "best_effort",
+      "description": "Validation behavior. best_effort: warn and continue. strict: hard-fail on validation failures, emit validation.json sidecars."
+    },
+    "firm": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Company name shown in headers, footers, title pages." },
+        "tagline": { "type": "string", "description": "Company tagline or slogan." },
+        "website": { "type": "string", "format": "uri", "description": "Company website. Only rendered in output if explicitly set in the user's override." }
+      },
+      "additionalProperties": false
+    },
+    "colors": {
+      "type": "object",
+      "description": "Raw color palette. Hex values.",
+      "properties": {
+        "primary": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "accent": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "text": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "text_secondary": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "surface": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "positive": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "warning": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "negative": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "critical": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "white": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+      },
+      "additionalProperties": false
+    },
+    "semantic": {
+      "type": "object",
+      "description": "Derived tokens mapping colors to usage contexts. If not set, derived from colors at resolution time.",
+      "properties": {
+        "heading_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "body_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "muted_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "border_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "link_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "surface_alt": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "success_bg": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "warning_bg": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "error_bg": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "chart_series": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "description": "Ordered color palette for chart data series."
+        }
+      },
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "object",
+      "description": "Component-level tokens for cross-format consistency.",
+      "properties": {
+        "table_header_bg": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "table_header_text": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "table_alt_row": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "card_radius": { "type": "string" },
+        "card_shadow": { "type": "string" },
+        "callout_border_width": { "type": "string" },
+        "footer_height": { "type": "string" },
+        "header_height": { "type": "string" },
+        "logo_max_height": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "typography": {
+      "type": "object",
+      "properties": {
+        "font_family": { "type": "string" },
+        "font_family_heading": { "type": "string" },
+        "font_family_mono": { "type": "string" },
+        "font_size_h1": { "type": "number" },
+        "font_size_h2": { "type": "number" },
+        "font_size_h3": { "type": "number" },
+        "font_size_body": { "type": "number" },
+        "font_size_caption": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "number_formats": {
+      "type": "object",
+      "description": "Excel-style format strings for numbers in tables, spreadsheets, KPI cards.",
+      "properties": {
+        "currency": { "type": "string" },
+        "currency_decimals": { "type": "string" },
+        "percentage": { "type": "string" },
+        "multiple": { "type": "string" },
+        "integer": { "type": "string" },
+        "year": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object",
+      "description": "Page geometry for PDF and DOCX. Margins in points (72pt = 1 inch).",
+      "properties": {
+        "page_size": { "type": "string", "enum": ["letter", "a4"] },
+        "margin_top": { "type": "number" },
+        "margin_bottom": { "type": "number" },
+        "margin_left": { "type": "number" },
+        "margin_right": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "confidentiality_notice": { "type": "string" },
+        "disclaimer": { "type": "string" },
+        "date_format": { "type": "string", "description": "Date format string (e.g., MMMM D, YYYY)." }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

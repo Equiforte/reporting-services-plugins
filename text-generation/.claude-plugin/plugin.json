@@ -1,0 +1,8 @@
+{
+  "name": "text-generation",
+  "version": "0.1.0",
+  "description": "Generate Markdown reports, self-contained HTML pages, plain-text summaries, and structured JSON data files.",
+  "author": {
+    "name": "Acme Inc"
+  }
+}

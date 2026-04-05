@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Generate a self-contained HTML one-pager about our sustainability initiatives. Carbon emissions down 15% YoY, energy usage reduced to 4800 MWh, 3 new green certifications. Include a data table. Write to output directory.

@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Create a Markdown executive memo about our Q1 2026 results. Revenue $25M (+18%), profit $4.2M. We expanded to 3 new countries and filed 12 patents. Write to the output directory.

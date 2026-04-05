@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Create a PDF financial report for FinCorp. Include an income statement table with: Revenue $50M, COGS $18M, Gross Profit $32M, OpEx $22M, Net Income $10M. Add a quarterly breakdown table with Q1-Q4 revenue. Write to output directory.

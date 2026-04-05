@@ -1,0 +1,30 @@
+# Resolved brand (generated at runtime, not committed)
+.reporting-resolved/
+
+# Output artifacts
+output/
+
+# Claude output
+claude-output.txt
+
+# E2E test working directories (generated at runtime)
+_tests/e2e/_workdir/
+
+# Claude local settings
+.claude/*.local.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node
+node_modules/
+dist/
+.npm-cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+

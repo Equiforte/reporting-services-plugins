@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/index.css",
+    "baseColor": "slate"
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  },
+  "components": [
+    "card",
+    "table",
+    "badge",
+    "tabs",
+    "separator",
+    "scroll-area",
+    "collapsible",
+    "tooltip",
+    "chart",
+    "sidebar",
+    "select",
+    "button",
+    "dropdown-menu",
+    "avatar",
+    "breadcrumb"
+  ]
+}

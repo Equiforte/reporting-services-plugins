@@ -1,0 +1,10 @@
+{
+  "mode": "strict",
+  "nl_overrides": false,
+  "firm": {
+    "name": "AuditCorp"
+  },
+  "colors": {
+    "primary": "#1A1A2E"
+  }
+}

@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Export a product tier comparison as structured JSON. Three tiers: Starter ($29/mo, 1K users, 5GB storage, email support), Pro ($99/mo, 10K users, 50GB, priority support — this is the recommended tier), Enterprise ($499/mo, unlimited users, 500GB, dedicated support). Write to output directory.

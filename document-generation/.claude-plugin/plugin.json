@@ -1,0 +1,8 @@
+{
+  "name": "document-generation",
+  "version": "0.1.0",
+  "description": "Generate branded PDF and DOCX documents — reports, memos, proposals, form-filled PDFs.",
+  "author": {
+    "name": "Acme Inc"
+  }
+}

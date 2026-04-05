@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Create a static HTML dashboard showing Q1 KPIs: Revenue $12.4M (+8.2%), EBITDA $3.1M (+12.1%), Headcount 142, NPS 72. Include a quarterly performance table with Q1 through Q4 data. Write to output directory.

@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Create a PDF executive summary for Q1 2026. Include these KPIs in a table: Revenue $12.4M (+8.2%), EBITDA $3.1M (+12.1%), Headcount 142, NPS 72. Add a paragraph of analysis about APAC expansion driving growth. Use the brand colors and include the confidentiality notice. Write to output directory.

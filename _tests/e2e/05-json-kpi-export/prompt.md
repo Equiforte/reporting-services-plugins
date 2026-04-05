@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Export our Q1 2026 KPIs as a structured JSON file. KPIs: ARR $14.8M (+22%), NRR 118% (+3pp), CAC Payback 14 months (-2mo), LTV/CAC 4.2x (+0.5x), Rule of 40 score 47% (+5pp). Sources: Stripe, HubSpot, internal database. Write to output directory.

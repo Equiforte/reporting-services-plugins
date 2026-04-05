@@ -1,0 +1,1 @@
+First resolve branding (run the brand skill to write .reporting-resolved/), then: Generate a CSV file with 20 sample financial transactions. Each row should have: Transaction ID (TXN-0001 format), Date (in 2026), Amount (between $100 and $50,000), Category (Sales/Marketing/Operations/R&D), and Status (Completed/Pending). Write to output directory.

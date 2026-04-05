@@ -1,0 +1,4 @@
+- Markdown file in output/text/
+- Should reference Globex Corp (from brand-config.json override)
+- YAML frontmatter with author: Globex Corp
+- Revenue and patent data included

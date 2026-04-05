@@ -1,0 +1,38 @@
+{
+  "name": "reporting-plugins",
+  "owner": {
+    "name": "Equiforte"
+  },
+  "plugins": [
+    {
+      "name": "branding",
+      "source": "./branding",
+      "description": "Core branding, design system, color tokens, typography, and output configuration. Required by all other plugins."
+    },
+    {
+      "name": "document-generation",
+      "source": "./document-generation",
+      "description": "Generate branded PDF and DOCX documents — reports, memos, proposals, form-filled PDFs."
+    },
+    {
+      "name": "presentation-generation",
+      "source": "./presentation-generation",
+      "description": "Generate branded PPTX slide decks — executive summaries, pitch decks, quarterly reviews."
+    },
+    {
+      "name": "spreadsheet-generation",
+      "source": "./spreadsheet-generation",
+      "description": "Generate XLSX spreadsheets with live formulas and CSV data exports."
+    },
+    {
+      "name": "text-generation",
+      "source": "./text-generation",
+      "description": "Generate Markdown reports, self-contained HTML pages, plain-text summaries, and structured JSON data files."
+    },
+    {
+      "name": "apps-generation",
+      "source": "./apps-generation",
+      "description": "Generate self-contained React dashboards, reports, comparisons, and timelines using shadcn/ui."
+    }
+  ]
+}

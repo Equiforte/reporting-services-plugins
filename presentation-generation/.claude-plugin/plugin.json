@@ -1,0 +1,8 @@
+{
+  "name": "presentation-generation",
+  "version": "0.1.0",
+  "description": "Generate branded PPTX slide decks — executive summaries, pitch decks, quarterly reviews.",
+  "author": {
+    "name": "Acme Inc"
+  }
+}

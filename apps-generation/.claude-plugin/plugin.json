@@ -1,0 +1,8 @@
+{
+  "name": "apps-generation",
+  "version": "0.1.0",
+  "description": "Generate self-contained React dashboards, reports, comparisons, and timelines using shadcn/ui.",
+  "author": {
+    "name": "Acme Inc"
+  }
+}

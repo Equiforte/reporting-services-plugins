@@ -1,0 +1,72 @@
+{
+  "firm": {
+    "name": "Acme Inc",
+    "tagline": "Building the future",
+    "website": "https://www.acme-inc.com"
+  },
+  "colors": {
+    "primary": "#1B3A5C",
+    "accent": "#2E75B6",
+    "text": "#2D2D2D",
+    "text_secondary": "#666666",
+    "surface": "#F7F8FA",
+    "positive": "#1A7A3A",
+    "warning": "#C67700",
+    "negative": "#C4261D",
+    "critical": "#8B0000",
+    "white": "#FFFFFF"
+  },
+  "semantic": {
+    "heading_color": "#1B3A5C",
+    "body_color": "#2D2D2D",
+    "muted_color": "#666666",
+    "border_color": "#D1D5DB",
+    "link_color": "#2E75B6",
+    "surface_alt": "#EEF0F4",
+    "success_bg": "#E8F5E9",
+    "warning_bg": "#FFF8E1",
+    "error_bg": "#FFEBEE",
+    "chart_series": ["#1B3A5C", "#2E75B6", "#1A7A3A", "#C67700", "#C4261D"]
+  },
+  "components": {
+    "table_header_bg": "#1B3A5C",
+    "table_header_text": "#FFFFFF",
+    "table_alt_row": "#F7F8FA",
+    "card_radius": "8px",
+    "card_shadow": "0 1px 3px rgba(0,0,0,0.12)",
+    "callout_border_width": "3px",
+    "footer_height": "40px",
+    "header_height": "60px",
+    "logo_max_height": "40px"
+  },
+  "typography": {
+    "font_family": "Calibri, sans-serif",
+    "font_family_heading": "Calibri, sans-serif",
+    "font_family_mono": "Consolas, monospace",
+    "font_size_h1": 28,
+    "font_size_h2": 22,
+    "font_size_h3": 16,
+    "font_size_body": 11,
+    "font_size_caption": 9
+  },
+  "number_formats": {
+    "currency": "$#,##0",
+    "currency_decimals": "$#,##0.00",
+    "percentage": "0.0%",
+    "multiple": "0.0x",
+    "integer": "#,##0",
+    "year": "0"
+  },
+  "layout": {
+    "page_size": "letter",
+    "margin_top": 72,
+    "margin_bottom": 72,
+    "margin_left": 72,
+    "margin_right": 72
+  },
+  "content": {
+    "confidentiality_notice": "CONFIDENTIAL — For internal use only.",
+    "disclaimer": "This document is for informational purposes only and does not constitute professional advice.",
+    "date_format": "MMMM D, YYYY"
+  }
+}

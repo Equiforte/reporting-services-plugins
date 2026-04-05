@@ -1,0 +1,8 @@
+{
+  "name": "spreadsheet-generation",
+  "version": "0.1.0",
+  "description": "Generate XLSX spreadsheets with live formulas and CSV data exports.",
+  "author": {
+    "name": "Acme Inc"
+  }
+}
